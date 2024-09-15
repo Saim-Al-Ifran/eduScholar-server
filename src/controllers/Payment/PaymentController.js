@@ -2,11 +2,14 @@ const Payment = require('../../models/Payment');
 const { stripeSecretKey } = require('../../secret');
 const stripe = require('stripe')(stripeSecretKey);
 
-// Create Payment Intent
+
 const createPaymentIntent = async (req, res, next) => {
     try {
-        console.log(stripeSecretKey)
-        const { price } = req.body;
+        const { price } = req.body; 
+        if (!price || isNaN(price)) {
+            return res.status(400).send({ error: 'Invalid price' });
+        }
+
         const amount = parseInt(price * 100);
 
         const paymentIntent = await stripe.paymentIntents.create({
@@ -15,11 +18,8 @@ const createPaymentIntent = async (req, res, next) => {
             payment_method_types: ['card'],
         });
 
-        console.log(paymentIntent.client_secret);
-        console.log(amount, 'amount inside the intent');
-
         res.status(200).send({
-            clientSecret: paymentIntent.client_secret,
+            clientSecret: paymentIntent.client_secret, 
         });
     } catch (err) {
         console.error('Error creating payment intent:', err);
@@ -27,11 +27,8 @@ const createPaymentIntent = async (req, res, next) => {
     }
 };
 
-// Confirm Payment
 const confirmPayment = async (req, res) => {
     const payment = req.body;
-    console.log(payment);
-
     try {
         const successPayment = new Payment(payment);
         await successPayment.save();
