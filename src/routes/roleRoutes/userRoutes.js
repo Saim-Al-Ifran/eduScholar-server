@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { getStudentsApplication, studentDeleteApplication, studentUpdateApplication, studentGetApplicationById, applyForScholarship } = require('../../controllers/Application/applicationController');
 const { addReview, getUserReviews, getReviewById, deleteReview, userUpdateReview } = require('../../controllers/Review/reviewController');
 const { getProfile } = require('../../controllers/User/userController');
-const { userRegisterController } = require('../../controllers/user/authController');
+const { userRegisterController } = require('../../controllers/User/authController');
 const { authenticate } = require('../../middlewares/auth/authenticate');
 
 
