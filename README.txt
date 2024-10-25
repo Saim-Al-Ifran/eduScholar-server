@@ -3,5 +3,5 @@ admin's email and password:
     password: AdminPassword789!
 
 moderator email and password:
-    email: nusrat.jahan@example.com
+    email: sumaiya.jahan@gmail.com
     password: StrongPassword456!
